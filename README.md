@@ -24,6 +24,7 @@ The intended sequence is:
 - Environment expected: `production`
 - No real production infrastructure is modified.
 - Live verification rerun triggered after Replit private-key handling fix on 2026-09-15.
+- Second verification rerun triggered after GitHub callback schema fix on 2026-09-15.
 
 ## Remaining live setup
 
