@@ -1,0 +1,57 @@
+name: INC-728 Protected Checkout Deployment
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare rollback request
+        run: |
+          echo "Mandate: INC-728"
+          echo "Proposed action: ROLLBACK_DEPLOYMENT"
+          echo "Service: checkout"
+          echo "The production job below must not start until the environment protection rule approves it."
+
+  deploy:
+    needs: prepare
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    env:
+      INC728_MANDATE_ID: INC-728
+      INC728_ACTION_TYPE: ROLLBACK_DEPLOYMENT
+      INC728_SERVICE: checkout
+      INC728_RESOURCE: checkout-production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Execute simulated Checkout rollback
+        run: |
+          echo "AUTHORITY GATE PASSED"
+          echo "Executing simulated rollback for $INC728_SERVICE under $INC728_MANDATE_ID"
+          echo "Action: $INC728_ACTION_TYPE"
+          echo "Resource: $INC728_RESOURCE"
+          date -u +"Executed at %Y-%m-%dT%H:%M:%SZ"
+
+      - name: Record deployment proof
+        run: |
+          mkdir -p proof
+          cat > proof/deployment.txt <<EOF
+          mandate=$INC728_MANDATE_ID
+          action=$INC728_ACTION_TYPE
+          service=$INC728_SERVICE
+          resource=$INC728_RESOURCE
+          result=SUCCESS
+          EOF
+
+      - name: Upload proof artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: inc728-deployment-proof
+          path: proof/deployment.txt
