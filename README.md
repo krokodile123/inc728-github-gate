@@ -25,5 +25,6 @@ The intended sequence is:
 - No real production infrastructure is modified.
 - P1 live GitHub protection flow passed.
 - P2 Render agent harness added for cross-control-plane testing.
+- P2 live cross-control-plane verification triggered after baseline ALLOW on 2026-09-15.
 
 This repository is intentionally disposable and contains no secrets.
