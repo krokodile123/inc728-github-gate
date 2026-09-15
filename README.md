@@ -25,6 +25,7 @@ The intended sequence is:
 - No real production infrastructure is modified.
 - Live verification rerun triggered after Replit private-key handling fix on 2026-09-15.
 - Second verification rerun triggered after GitHub callback schema fix on 2026-09-15.
+- Final clean verification rerun triggered after 204-success bookkeeping fix on 2026-09-15.
 
 ## Remaining live setup
 
