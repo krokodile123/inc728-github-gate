@@ -1,6 +1,8 @@
 name: INC-728 Protected Checkout Deployment
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
