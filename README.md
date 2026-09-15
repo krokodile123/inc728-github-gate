@@ -23,6 +23,7 @@ The intended sequence is:
 - Workflow: `.github/workflows/inc728-deploy.yml`
 - Environment expected: `production`
 - No real production infrastructure is modified.
+- Live verification rerun triggered after Replit private-key handling fix on 2026-09-15.
 
 ## Remaining live setup
 
