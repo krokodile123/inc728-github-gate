@@ -15,7 +15,7 @@ The intended sequence is:
 5. Authority returns approve / reject / wait-for-step-up.
 6. Only after approval does the simulated rollback job execute.
 7. The successful rollback is committed to shared `INC-728` authority state.
-8. A separately authenticated DB agent requesting failover should then receive `STEP_UP` because the rollback changed objective-level incident history.
+8. A separately authenticated second control root can then be evaluated against the same mandate state.
 
 ## Repository status
 
@@ -23,19 +23,7 @@ The intended sequence is:
 - Workflow: `.github/workflows/inc728-deploy.yml`
 - Environment expected: `production`
 - No real production infrastructure is modified.
-- Live verification rerun triggered after Replit private-key handling fix on 2026-09-15.
-- Second verification rerun triggered after GitHub callback schema fix on 2026-09-15.
-- Final clean verification rerun triggered after 204-success bookkeeping fix on 2026-09-15.
-
-## Remaining live setup
-
-The repository-side workflow is ready. The remaining work is account/app configuration:
-
-- expose the INC-728 authority service on a public HTTPS endpoint;
-- create/configure the GitHub App with the deployment protection rule webhook and required permissions;
-- install the App on this repository;
-- create the `production` environment if GitHub has not created it automatically;
-- attach the custom deployment protection rule to `production`;
-- trigger the workflow and verify GitHub physically waits for the external authority decision.
+- P1 live GitHub protection flow passed.
+- P2 Render agent harness added for cross-control-plane testing.
 
 This repository is intentionally disposable and contains no secrets.
